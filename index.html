@@ -604,11 +604,15 @@
         z-index: 9999;
       }
     }
-    
+    html, body {
+  background: var(--bg) !important;
+}
+
   </style>
   <!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
 
 </head>
 <body>
@@ -634,6 +638,8 @@
     <button data-target="checklist">체크리스트</button>
     <button data-target="toganjip">또간집</button>
     <button data-target="chat">기분 기록짱</button>
+    <button onclick="showPage('packing')">짐을 챙겨요 🎒</button>
+
   </nav>
 
   <main>
@@ -803,6 +809,36 @@
         <div id="tog-list" class="toganjip-list"></div>
       </div>
     </section>
+<div id="packing" class="page" style="display:none;">
+  <h2>짐을 챙겨요 🎒</h2>
+
+  <div class="card">
+    <h3>공용 짐</h3>
+    <div class="chip-row">
+      <input id="packing-common-input" placeholder="공용 짐 추가…" />
+      <button onclick="addPackingItem('common')">추가</button>
+    </div>
+    <ul id="packing-common-list" class="packing-list"></ul>
+  </div>
+
+  <div class="card">
+    <h3>지안이가 챙겨오기</h3>
+    <div class="chip-row">
+      <input id="packing-jian-input" placeholder="지안 짐 추가…" />
+      <button onclick="addPackingItem('jian')">추가</button>
+    </div>
+    <ul id="packing-jian-list" class="packing-list"></ul>
+  </div>
+
+  <div class="card">
+    <h3>은설이가 챙겨오기</h3>
+    <div class="chip-row">
+      <input id="packing-seol-input" placeholder="은설 짐 추가…" />
+      <button onclick="addPackingItem('seol')">추가</button>
+    </div>
+    <ul id="packing-seol-list" class="packing-list"></ul>
+  </div>
+</div>
 
     <!-- CHAT -->
     <section id="chat">
@@ -856,6 +892,106 @@
   </footer>
 
   <script>
+    <script>
+  // 🔥 이미 넣어둔 부분 (지금 있는 그대로 유지)
+  const firebaseConfig = {
+    apiKey: "AIzaSyAkKiBvatV-2VQd3mBTNwoX0ZkxVvSq5Ig",
+    authDomain: "jian-1c9d3.firebaseapp.com",
+    projectId: "jian-1c9d3",
+    storageBucket: "jian-1c9d3.firebasestorage.app",
+    messagingSenderId: "1081519555440",
+    appId: "1:1081519555440:web:df585b5d3c6e10bbc805b5",
+    measurementId: "G-GFG5TRPB5Q"
+  };
+
+  const app = firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  // ===== 짐을 챙겨요 Firestore 버전 =====
+  const packingCol = db.collection("packingItems");
+
+  // 실시간으로 짐 리스트 가져와서 화면에 뿌리기
+  packingCol.orderBy("createdAt").onSnapshot((snap) => {
+    const lists = {
+      common: [],
+      jian: [],
+      seol: []
+    };
+
+    snap.forEach((doc) => {
+      const data = doc.data();
+      const item = { id: doc.id, ...data };
+      if (lists[item.type]) {
+        lists[item.type].push(item);
+      }
+    });
+
+    renderPackingList("common", lists.common);
+    renderPackingList("jian", lists.jian);
+    renderPackingList("seol", lists.seol);
+  });
+
+  function renderPackingList(type, items) {
+    const ul = document.getElementById(`packing-${type}-list`);
+    if (!ul) return;
+    ul.innerHTML = "";
+
+    items.forEach((item) => {
+      const li = document.createElement("li");
+      li.style.display = "flex";
+      li.style.alignItems = "center";
+      li.style.gap = "8px";
+      li.style.margin = "4px 0";
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = !!item.checked;
+      checkbox.onchange = () => togglePackingItem(item.id, !item.checked);
+
+      const span = document.createElement("span");
+      span.textContent = item.text;
+      span.style.flex = "1";
+      span.style.textDecoration = item.checked ? "line-through" : "none";
+      span.style.opacity = item.checked ? "0.6" : "1";
+
+      const delBtn = document.createElement("button");
+      delBtn.textContent = "삭제";
+      delBtn.onclick = () => deletePackingItem(item.id);
+
+      li.appendChild(checkbox);
+      li.appendChild(span);
+      li.appendChild(delBtn);
+      ul.appendChild(li);
+    });
+  }
+
+  async function addPackingItem(type) {
+    const input = document.getElementById(`packing-${type}-input`);
+    if (!input || !input.value.trim()) return;
+
+    await packingCol.add({
+      type,
+      text: input.value.trim(),
+      checked: false,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    input.value = "";
+  }
+
+  async function togglePackingItem(id, checked) {
+    await packingCol.doc(id).update({ checked });
+  }
+
+  async function deletePackingItem(id) {
+    await packingCol.doc(id).delete();
+  }
+
+  // ===== 여기 아래로는 기존에 있던 JS 코드 그대로 유지 =====
+  // (일기, 체크리스트, 또간집, 채팅 등)
+  // ...
+</script>
+
      // === PWA: service worker 등록 ===
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
