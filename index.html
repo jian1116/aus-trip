@@ -1,18 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  
   <meta charset="UTF-8">
-  <title>Jian & Eunseol in AUS ✈️</title>
+  <title>Tori & Eunseol in AUS ✈️</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0b1020">
-  <link rel="manifest" href="manifest.webmanifest">
-
   <style>
-    body {
-  background: var(--bg) !important;
-}
-
     :root {
       --bg: #0b1020;
       --card: rgba(24, 30, 60, 0.9);
@@ -21,7 +13,11 @@
       --text: #f7f8ff;
       --muted: #a8b0d8;
       --danger: #ff8b8b;
+    }    html, body {
+      background: #050713;
     }
+
+
 
     * {
       box-sizing: border-box;
@@ -39,38 +35,43 @@
       overflow-x: hidden;
     }
 
-    /* 별 + 방울 배경 */
-    body::before,
-    body::after {
-      content: "";
+    .star {
       position: fixed;
       inset: -50%;
       background-image:
-        radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.15) 0, transparent 40%),
-        radial-gradient(circle at 80% 10%, rgba(143, 228, 255, 0.2) 0, transparent 45%),
-        radial-gradient(circle at 30% 80%, rgba(255, 200, 255, 0.15) 0, transparent 40%);
-      opacity: 0.2;
+        radial-gradient(circle, rgba(255, 255, 255, 0.9) 0, transparent 50%),
+        radial-gradient(circle, rgba(255, 255, 255, 0.6) 0, transparent 50%),
+        radial-gradient(circle, rgba(143, 228, 255, 0.9) 0, transparent 50%),
+        radial-gradient(circle, rgba(255, 200, 255, 0.9) 0, transparent 50%);
+      background-size: 2px 2px, 1px 1px, 1.8px 1.8px, 1.2px 1.2px;
+      background-position:
+        10% 20%,
+        30% 80%,
+        70% 10%,
+        90% 60%;
+      opacity: 0.3;
+      mix-blend-mode: screen;
+      pointer-events: none;
+      animation: twinkle 12s infinite alternate;
       z-index: -2;
     }
 
-    .star {
-      position: fixed;
-      width: 2px;
-      height: 2px;
-      border-radius: 999px;
-      background: white;
-      opacity: 0.5;
-      animation: twinkle 4s ease-in-out infinite;
+    @keyframes twinkle {
+      0% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.02); }
+      100% { opacity: 0.4; transform: scale(1); }
     }
 
-    .star:nth-child(1) { top: 10%; left: 20%; }
-    .star:nth-child(2) { top: 30%; left: 80%; animation-delay: 1s; }
-    .star:nth-child(3) { top: 60%; left: 15%; animation-delay: 2s; }
-    .star:nth-child(4) { top: 80%; left: 70%; animation-delay: 3s; }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.2; transform: scale(1); }
-      50% { opacity: 0.8; transform: scale(1.6); }
+    .bubble-layer {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 10% 90%, rgba(143, 228, 255, 0.14) 0, transparent 55%),
+        radial-gradient(circle at 80% 10%, rgba(255, 200, 255, 0.16) 0, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(143, 228, 255, 0.05) 0, transparent 60%);
+      opacity: 0.9;
+      pointer-events: none;
+      z-index: -1;
     }
 
     header {
@@ -97,15 +98,29 @@
       flex-wrap: wrap;
       gap: 8px;
       justify-content: center;
-      font-size: 0.8rem;
     }
 
     .chip {
       padding: 4px 10px;
       border-radius: 999px;
-      background: linear-gradient(90deg, rgba(143, 228, 255, 0.15), rgba(255, 200, 255, 0.15));
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255,255,255,0.16);
+      font-size: 0.76rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(6, 8, 24, 0.9);
       backdrop-filter: blur(12px);
+    }
+
+    .chip span {
+      font-size: 0.8rem;
+    }
+
+    .chip-icon {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff 0, #ffc8ff 40%, #8fe4ff 100%);
     }
 
     nav {
@@ -120,25 +135,28 @@
     nav button {
       flex: 1 1 130px;
       border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      background: rgba(15, 16, 40, 0.9);
-      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(6, 8, 24, 0.92);
+      color: var(--muted);
+      font-size: 0.8rem;
       padding: 8px 12px;
-      font-size: 0.85rem;
       cursor: pointer;
-      transition: all 0.2s ease;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease-out;
+    }
+
+    nav button span.emoji {
+      font-size: 1rem;
     }
 
     nav button.active {
-      background: linear-gradient(90deg, #8fe4ff, #ffc8ff);
-      color: #11111f;
-      font-weight: 600;
-      box-shadow: 0 0 14px rgba(143, 228, 255, 0.6);
-    }
-
-    nav button:hover:not(.active) {
-      transform: translateY(-1px);
-      box-shadow: 0 3px 10px rgba(0,0,0,0.35);
+      background: linear-gradient(135deg, rgba(143, 228, 255, 0.25), rgba(255, 200, 255, 0.25));
+      color: #ffffff;
+      border-color: rgba(255,255,255,0.5);
+      box-shadow: 0 0 12px rgba(143, 228, 255, 0.3);
     }
 
     main {
@@ -148,33 +166,42 @@
 
     section {
       display: none;
-      animation: fadeIn 0.25s ease-out;
     }
 
     section.active {
       display: block;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
     .card {
       background: var(--card);
-      border-radius: 18px;
-      padding: 14px 14px 16px;
-      box-shadow: 0 18px 45px rgba(0,0,0,0.5);
-      border: 1px solid rgba(143, 228, 255, 0.18);
-      backdrop-filter: blur(16px);
-      margin-bottom: 14px;
+      border-radius: 20px;
+      padding: 14px 16px;
+      box-shadow:
+        0 16px 40px rgba(0, 0, 0, 0.55),
+        0 0 0 1px rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(143, 228, 255, 0.14) 0, transparent 50%),
+        radial-gradient(circle at 80% 100%, rgba(255, 200, 255, 0.14) 0, transparent 52%);
+      opacity: 0.6;
+      pointer-events: none;
+      z-index: -1;
     }
 
     .card-title-row {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      margin-bottom: 8px;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
     }
 
     .card h2 {
@@ -182,355 +209,61 @@
     }
 
     .badge {
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       padding: 3px 8px;
       border-radius: 999px;
-      background: rgba(143, 228, 255, 0.2);
-      color: var(--accent);
-    }
-
-    .card p.desc {
-      font-size: 0.82rem;
+      background: rgba(6, 8, 24, 0.88);
+      border: 1px solid rgba(255,255,255,0.24);
       color: var(--muted);
-      margin-bottom: 10px;
+      white-space: nowrap;
     }
 
-    label {
-      font-size: 0.78rem;
-      display: block;
-      margin-bottom: 4px;
+    .desc {
+      font-size: 0.8rem;
       color: var(--muted);
-    }
-
-    input[type="text"],
-    input[type="date"],
-    input[type="url"],
-    textarea {
-      width: 100%;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.25);
-      background: rgba(8, 9, 24, 0.9);
-      padding: 8px 10px;
-      color: var(--text);
-      font-size: 0.82rem;
-      outline: none;
       margin-bottom: 8px;
+      line-height: 1.4;
     }
 
-    textarea {
-      resize: vertical;
-      min-height: 80px;
-      max-height: 200px;
-    }
-
-    input::placeholder,
-    textarea::placeholder {
-      color: rgba(180, 190, 230, 0.7);
-    }
-
-    input[type="file"] {
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin: 4px 0 8px;
-    }
-
-    .char-counter {
-      font-size: 0.7rem;
-      text-align: right;
-      color: var(--muted);
-      margin-top: -4px;
-      margin-bottom: 6px;
-    }
-
-    .btn-row {
-      display: flex;
-      gap: 8px;
-      justify-content: flex-end;
-      margin-top: 4px;
-    }
-
-    .btn {
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.15);
-      padding: 6px 12px;
-      font-size: 0.8rem;
-      cursor: pointer;
-      background: rgba(15, 16, 40, 0.95);
-      color: var(--text);
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .btn-primary {
-      background: linear-gradient(90deg, #8fe4ff, #ffc8ff);
-      color: #101021;
-      font-weight: 600;
-    }
-
-    .btn-ghost {
-      background: transparent;
-    }
-
-    .btn-danger {
-      border-color: rgba(255, 139, 139, 0.8);
-      color: var(--danger);
-    }
-
-    .btn:disabled {
-      opacity: 0.5;
-      cursor: default;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      border-radius: 999px;
-      padding: 4px 8px;
-      font-size: 0.75rem;
-      background: rgba(0,0,0,0.28);
-      border: 1px solid rgba(255,255,255,0.15);
-      color: var(--muted);
-    }
-
-    .pill-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--accent2);
-    }
-
-    .grid {
-      display: grid;
-      gap: 10px;
-    }
-
-    @media (min-width: 720px) {
-      .grid-2 {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-      .grid-3 {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-    }
-
-    .journal-list {
-      margin-top: 10px;
-      display: grid;
-      gap: 8px;
-    }
-
-    .journal-item {
-      border-radius: 14px;
-      background: rgba(9, 10, 30, 0.9);
-      padding: 10px;
-      border: 1px solid rgba(143, 228, 255, 0.15);
-      font-size: 0.8rem;
-    }
-
-    .journal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 4px;
-    }
-
-    .journal-date {
-      font-weight: 600;
-      font-size: 0.85rem;
-    }
-
-    .journal-tag {
-      font-size: 0.7rem;
-      color: var(--muted);
-    }
-
-    .journal-photos {
+    .pill-row {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
       margin-top: 6px;
-    }
-
-    .journal-photos img {
-      width: 72px;
-      height: 72px;
-      object-fit: cover;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.15);
-    }
-
-    .checklist-list {
-      display: grid;
-      gap: 8px;
-      margin-top: 8px;
-    }
-
-    .check-item {
-      border-radius: 14px;
-      padding: 8px 10px;
-      background: rgba(9, 10, 30, 0.9);
-      border: 1px solid rgba(255,255,255,0.16);
-      font-size: 0.8rem;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .check-top-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 6px;
-      align-items: center;
-    }
-
-    .check-name {
-      font-weight: 600;
-      font-size: 0.85rem;
-    }
-
-    .check-link {
       font-size: 0.75rem;
-      color: var(--accent);
-      text-decoration: none;
-      word-break: break-all;
     }
 
-    .check-bottom-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 2px;
-    }
-
-    .check-bottom-row label {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      margin: 0;
-      font-size: 0.78rem;
-      cursor: pointer;
-      color: var(--muted);
-    }
-
-    .visit-log {
-      margin-top: 10px;
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    .visit-log-group {
-      margin-top: 4px;
-    }
-
-    .visit-log-group strong {
-      font-size: 0.78rem;
-    }
-
-    .visit-log-list {
-      margin-top: 2px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-    }
-
-    .visit-log-pill {
-      padding: 2px 6px;
+    .pill {
       border-radius: 999px;
-      background: rgba(8, 9, 24, 0.9);
-      border: 1px solid rgba(143, 228, 255, 0.2);
-    }
-
-    .toganjip-list {
-      margin-top: 10px;
-      display: grid;
-      gap: 10px;
-    }
-
-    .toganjip-card {
-      border-radius: 16px;
-      padding: 10px;
-      background: rgba(9, 10, 30, 0.94);
+      padding: 2px 8px;
       border: 1px solid rgba(255,255,255,0.18);
-      font-size: 0.8rem;
+      background: rgba(6,8,24,0.92);
     }
 
-    .toganjip-photos {
+    .divider {
+      height: 1px;
+      border-radius: 999px;
+      margin: 10px 0;
+      background: linear-gradient(90deg, transparent, rgba(143, 228, 255, 0.5), transparent);
+      opacity: 0.5;
+    }
+
+    .weather-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 6px;
-      margin: 6px 0;
-    }
-
-    .toganjip-photos img {
-      width: 100%;
-      border-radius: 12px;
-      height: 110px;
-      object-fit: cover;
-      border: 1px solid rgba(255,255,255,0.2);
-    }
-
-    .toganjip-label {
-      font-size: 0.7rem;
-      text-align: center;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-
-    .chat-columns {
-      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
       gap: 10px;
-    }
-
-    @media (min-width: 720px) {
-      .chat-columns {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    .chat-log {
-      margin-top: 8px;
-      max-height: 260px;
-      overflow-y: auto;
-      padding-right: 4px;
-    }
-
-    .chat-bubble {
-      border-radius: 14px;
-      padding: 6px 8px;
-      background: rgba(9, 10, 30, 0.9);
-      border: 1px solid rgba(143, 228, 255, 0.18);
-      font-size: 0.78rem;
-      margin-bottom: 6px;
-    }
-
-    .chat-meta {
-      font-size: 0.68rem;
-      color: var(--muted);
-      margin-bottom: 1px;
-    }
-
-    .weather-row {
-      display: grid;
-      gap: 10px;
-    }
-
-    @media (min-width: 640px) {
-      .weather-row {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
+      margin-top: 6px;
     }
 
     .weather-card {
       border-radius: 16px;
       padding: 10px 12px;
-      background: radial-gradient(circle at top left, rgba(143, 228, 255, 0.35), rgba(5, 7, 20, 0.98));
-      border: 1px solid rgba(255,255,255,0.2);
-      font-size: 0.86rem;
+      background: rgba(6, 8, 24, 0.92);
+      border: 1px solid rgba(255,255,255,0.12);
+      font-size: 0.78rem;
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 4px;
     }
 
     .weather-title {
@@ -545,74 +278,501 @@
       margin-top: 2px;
     }
 
-    .small {
+    .weather-sub {
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    .weather-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .checklist-list.weather-day {
+      margin-top: 4px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 4px;
+      font-size: 0.7rem;
+    }
+
+    .weather-hour {
+      padding: 4px 6px;
+      border-radius: 10px;
+      background: rgba(6, 8, 24, 0.92);
+      border: 1px solid rgba(255,255,255,0.14);
+      text-align: center;
+    }
+
+    .weather-hour strong {
+      display: block;
+      font-size: 0.75rem;
+    }
+
+    .weather-hour span {
+      display: block;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 720px) {
+      .weather-grid {
+        grid-template-columns: minmax(0,1fr);
+      }
+    }
+
+    .journal-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 720px) {
+      .journal-grid {
+        grid-template-columns: minmax(0,1fr);
+      }
+    }
+
+    .journal-inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(6,8,24,0.94);
+      color: var(--text);
+      padding: 6px 8px;
+      font-size: 0.8rem;
+      outline: none;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(145,155,190,0.7);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+      max-height: 240px;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 6px;
+    }
+
+    .input-row > div {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .photo-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
       font-size: 0.74rem;
       color: var(--muted);
+    }
+
+    .photo-row input {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .small-hint {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(6,8,24,0.96);
+      color: var(--text);
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: all 0.18s ease-out;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #8fe4ff, #ffc8ff);
+      color: #050713;
+      border-color: transparent;
+      box-shadow: 0 0 10px rgba(143, 228, 255, 0.4);
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.05);
+      box-shadow: 0 0 14px rgba(143, 228, 255, 0.6);
+    }
+
+    .btn-text {
+      background: transparent;
+      border-color: rgba(255,255,255,0.12);
+      color: var(--muted);
+    }
+
+    .journal-list {
+      margin-top: 4px;
+      max-height: 420px;
+      overflow-y: auto;
+      padding-right: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.78rem;
+    }
+
+    .journal-item {
+      border-radius: 14px;
+      padding: 7px 8px;
+      background: rgba(6,8,24,0.96);
+      border: 1px solid rgba(255,255,255,0.18);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .journal-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .journal-photos {
+      display: flex;
+      gap: 4px;
+      margin-top: 2px;
+    }
+
+    .journal-photos img {
+      width: 72px;
+      height: 72px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .checklist-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .packing-list {
+      list-style: none;
+      margin-top: 6px;
+      font-size: 0.8rem;
+    }
+
+    .packing-list li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 6px;
+      border-radius: 10px;
+      background: rgba(9, 10, 30, 0.9);
+      border: 1px solid rgba(255,255,255,0.16);
+      margin-top: 4px;
+    }
+
+    .packing-list li span {
+      flex: 1;
+      word-break: break-all;
+    }
+
+    .packing-list li button {
+      font-size: 0.7rem;
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .packing-list li input[type="checkbox"] {
+      accent-color: #8fe4ff;
+    }
+
+
+    .check-item {
+      border-radius: 14px;
+      padding: 8px 10px;
+      background: rgba(9, 10, 30, 0.9);
+      border: 1px solid rgba(255,255,255,0.16);
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .check-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .check-item-header span.label {
+      white-space: nowrap;
+      font-weight: 600;
+    }
+
+    .check-sub {
+      font-size: 0.76rem;
+      color: var(--muted);
+    }
+
+    .check-actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 3px;
+    }
+
+    .check-actions button {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(6,8,24,0.9);
+      cursor: pointer;
+      color: var(--muted);
+    }
+
+    .visit-log {
+      margin-top: 8px;
+      font-size: 0.76rem;
+      color: var(--muted);
+    }
+
+    .visit-log-entry {
+      padding: 4px 0;
+    }
+
+    .toganjip-grid {
+      margin-top: 8px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .toganjip-grid {
+        grid-template-columns: minmax(0,1fr);
+      }
+    }
+
+    .mini-input-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .mini-input-row input {
+      font-size: 0.78rem;
+      padding: 5px 7px;
+    }
+
+    .memo-photo-box {
+      border-radius: 16px;
+      padding: 8px;
+      background: rgba(6,8,24,0.96);
+      border: 1px dashed rgba(255,255,255,0.28);
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+      margin-top: 8px;
+      font-size: 0.78rem;
+    }
+
+    .photo-placeholder {
+      border-radius: 12px;
+      background: radial-gradient(circle at 20% 10%, rgba(143, 228, 255, 0.6), transparent 55%),
+                  radial-gradient(circle at 80% 90%, rgba(255, 200, 255, 0.6), transparent 55%);
+      border: 1px solid rgba(255,255,255,0.4);
+      min-height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(3, 5, 20, 0.86);
+      font-weight: 600;
+      text-align: center;
+      padding: 4px;
+    }
+
+    .memo-textarea {
+      margin-top: 6px;
+      font-size: 0.78rem;
+    }
+
+    .toganjip-list {
+      margin-top: 4px;
+      max-height: 420px;
+      overflow-y: auto;
+      padding-right: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.78rem;
+    }
+
+    .toganjip-item {
+      border-radius: 14px;
+      padding: 7px 8px;
+      background: rgba(6,8,24,0.96);
+      border: 1px solid rgba(255,255,255,0.18);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .toganjip-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .toganjip-photos {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 4px;
+      margin-top: 3px;
+    }
+
+    .toganjip-photos img {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.2);
+      object-fit: cover;
+    }
+
+    .toganjip-photos div {
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .chat-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 10px;
+      margin-top: 6px;
+      font-size: 0.78rem;
+    }
+
+    @media (max-width: 720px) {
+      .chat-grid {
+        grid-template-columns: minmax(0,1fr);
+      }
+    }
+
+    .chat-col h3 {
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+
+    .chat-input-row {
+      display: flex;
+      gap: 6px;
+      align-items: flex-start;
+    }
+
+    .chat-input-row textarea {
+      flex: 1;
+      min-height: 60px;
+    }
+
+    .chat-counter {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 2px;
+      text-align: right;
+    }
+
+    .chat-log {
+      margin-top: 6px;
+      max-height: 260px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .chat-bubble {
+      border-radius: 14px;
+      padding: 7px 8px;
+      background: rgba(6,8,24,0.96);
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+
+    .chat-meta {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-bottom: 2px;
     }
 
     footer {
       max-width: 1040px;
       margin: 0 auto;
-      text-align: center;
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       color: var(--muted);
-      opacity: 0.7;
-      padding-bottom: 16px;
+      text-align: center;
     }
-    /* === 모바일 최적화 추가 === */
-    @media (max-width: 480px) {
+
+    @media (max-width: 600px) {
       body {
         padding: 12px;
-        padding-bottom: 84px; /* 아래 네비바 들어갈 자리 */
       }
 
       header h1 {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
       }
 
-      header p {
-        font-size: 0.8rem;
+      nav {
+        margin-top: 10px;
       }
 
       .card {
-        padding: 10px 12px;
-        border-radius: 14px;
-      }
-
-      nav button {
-        font-size: 0.78rem;
-        padding: 7px 10px;
+        border-radius: 18px;
+        padding: 12px 12px;
       }
 
       .journal-photos img {
-        width: 100%;
-        height: auto;
+        width: 64px;
+        height: 64px;
       }
     }
-
-    /* 모바일에서 네비게이션을 하단 고정바처럼 */
-    @media (max-width: 600px) {
-      nav {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: rgba(10, 12, 30, 0.95);
-        backdrop-filter: blur(10px);
-        padding: 8px;
-        border-top: 1px solid rgba(255,255,255,0.15);
-        z-index: 9999;
-      }
-    }
-    html, body {
-  background: var(--bg) !important;
-}
-
   </style>
-  <!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
 </head>
 <body>
@@ -622,13 +782,22 @@
   <div class="star"></div>
   <div class="star"></div>
 
+  <div class="bubble-layer"></div>
+
   <header>
     <h1>✨ Jian & Eunseol in AUS ✈️</h1>
-    <p> 여행 일기 • 체크리스트 • 설쟌또간집 • 홀로 기록장</p>
+    <p> 여행 일기 • 체크리스트 • 또간집 • 우리 둘만의 채팅방 • 짐 챙기기 🎒</p>
     <div class="chip-row">
-      <div class="chip">2026-01-16 ~ 2026-02-01</div>
-      <div class="chip">출발 D-Day: 2026-01-20</div>
-      <div class="chip">설이랑 쟈니의 두 번째 호주 여행 🌙</div>
+      <div class="chip">
+        <div class="chip-icon"></div>
+        <span>설이랑 쟈니의 두 번째 호주 여행 🌙</span>
+      </div>
+      <div class="chip">
+        <span>⏰ 2026-01-16 ~ 02-01 (출발: 01-20)</span>
+      </div>
+      <div class="chip">
+        <span>✨ 멜버른 & 시드니 감성 기록</span>
+      </div>
     </div>
   </header>
 
@@ -636,10 +805,9 @@
     <button data-target="home" class="active">Home</button>
     <button data-target="journal">일일 기록장</button>
     <button data-target="checklist">체크리스트</button>
+    <button data-target="packing">짐을 챙겨요</button>
     <button data-target="toganjip">또간집</button>
-    <button data-target="chat">기분 기록짱</button>
-    <button onclick="showPage('packing')">짐을 챙겨요 🎒</button>
-
+    <button data-target="chat">우리 둘 채팅방</button>
   </nav>
 
   <main>
@@ -650,51 +818,55 @@
           <h2>오늘의 멜버른 & 호주 날씨</h2>
           <span class="badge">weather</span>
         </div>
-        <p class="desc">제가api연결은안해봣어요요</p>
-        <div class="weather-row">
-          <div class="weather-card" id="weather-mel">
+        <p class="desc">
+          멜버른, 호주 전체 날씨를 간단하게 적어두는 공간이야. 실제 API는 안 붙였지만, 그날 그날 느낌을 기록할 수 있어 ☁️
+        </p>
+        <div class="weather-grid">
+          <div class="weather-card">
             <div class="weather-title">
-              <span>Melbourne</span>
-              <span class="small" id="weather-mel-updated">-</span>
+              <span>멜버른</span>
+              <span>🇦🇺</span>
             </div>
-            <div class="weather-temp" id="weather-mel-temp">22°C</div>
-            <div class="small" id="weather-mel-desc">맑고 살짝 선선한 저녁</div>
+            <div class="weather-temp" id="mel-temp">—°C</div>
+            <div class="weather-sub" id="mel-desc">하늘 상태 메모</div>
+            <div class="weather-meta">
+              <span id="mel-high">최고 —°</span>
+              <span id="mel-low">최저 —°</span>
+            </div>
           </div>
-          <div class="weather-card" id="weather-aus">
+          <div class="weather-card">
             <div class="weather-title">
-              <span>Australia (Trip mood)</span>
-              <span class="small" id="weather-aus-updated">-</span>
+              <span>호주 전체 느낌</span>
+              <span>🗺️</span>
             </div>
-            <div class="weather-temp" id="weather-aus-temp">26°C</div>
-            <div class="small" id="weather-aus-desc">해 쨍쨍, 여행하기 딱 좋은 날씨</div>
+            <div class="weather-temp" id="au-temp">—°C</div>
+            <div class="weather-sub" id="au-desc">도시별 날씨 한 줄 요약</div>
+            <div class="weather-meta">
+              <span id="au-note">예: 시드니 맑음, 멜버른 선선</span>
+              <span style="opacity:0.8;">기록용</span>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title-row">
-          <h2>여행 카운트다운</h2>
-          <span class="badge">countdown</span>
-        </div>
-        <p class="desc">출발 전 설레는 기간까지 기록할 수 있어. 1월 16일부터 여행 끝나는 2월 1일까지가 우리 둘만의 타임라인 📅</p>
-        <div class="grid grid-3">
-          <div class="journal-item">
-            <div class="journal-header">
-              <span class="journal-date">출발까지 D-<span id="d-day"></span></span>
-            </div>
-            <div class="journal-body small">2026-01-20 기준으로 계산해.</div>
+        <div class="divider"></div>
+        <p class="desc" style="margin-top:4px;">
+          아래는 그날그날 시간대별 날씨 / 일정 메모로 써도 좋아.
+        </p>
+        <div class="checklist-list weather-day">
+          <div class="weather-hour">
+            <strong>아침</strong>
+            <span id="hour-am">-</span>
           </div>
-          <div class="journal-item">
-            <div class="journal-header">
-              <span class="journal-date">전체 여행</span>
-            </div>
-            <div class="journal-body small">2026-01-16 ~ 02-01, 총 <span id="total-days"></span>일 기록 가능</div>
+          <div class="weather-hour">
+            <strong>점심</strong>
+            <span id="hour-noon">-</span>
           </div>
-          <div class="journal-item">
-            <div class="journal-header">
-              <span class="journal-date">오늘 상태</span>
-            </div>
-            <div class="journal-body small">오늘이 저 범위 안이면, 일일기록장에 바로 쓸 수 있어 ✏️</div>
+          <div class="weather-hour">
+            <strong>저녁</strong>
+            <span id="hour-pm">-</span>
+          </div>
+          <div class="weather-hour">
+            <strong>밤</strong>
+            <span id="hour-night">-</span>
           </div>
         </div>
       </div>
@@ -704,41 +876,57 @@
     <section id="journal">
       <div class="card">
         <div class="card-title-row">
-          <h2>일일 기록장 📖</h2>
-          <span class="badge">500자 / 사진 3장</span>
+          <h2>일일 기록장 📓</h2>
+          <span class="badge">2026-01-16 ~ 02-01</span>
         </div>
-        <p class="desc">2026-01-16 ~ 02-01 사이 날짜만 기록 가능해. 여행 전 설렘도, 멜버른에서의 하루도 컴팩트하게 담자!</p>
+        <p class="desc">
+          여행 전 두근거림부터, 돌아오는 날까지 하루를 최대 500자로 기록할 수 있는 공간이야. 사진 링크도 3장까지 붙일 수 있어 📷
+        </p>
 
-        <div class="grid grid-2">
-          <div>
-            <label for="journal-date">날짜</label>
-            <input type="date" id="journal-date"
-                   min="2026-01-16" max="2026-02-01">
+        <div class="journal-grid">
+          <div class="journal-inputs">
+            <div class="input-row">
+              <div>
+                <label for="journal-date">날짜</label>
+                <input id="journal-date" type="date" min="2026-01-16" max="2026-02-01">
+              </div>
+              <div>
+                <label for="journal-mood">오늘의 기분</label>
+                <input id="journal-mood" placeholder="예: 두근두근, 피곤하지만 행복, 설레는 준비 중">
+              </div>
+            </div>
+
+            <div>
+              <label>사진 링크 (최대 3장)</label>
+              <div class="photo-row">
+                <input id="journal-photo1" placeholder="사진 1 URL">
+                <input id="journal-photo2" placeholder="사진 2 URL">
+                <input id="journal-photo3" placeholder="사진 3 URL">
+              </div>
+            </div>
+
+            <div>
+              <label for="journal-text">오늘의 기록 (500자 이내)</label>
+              <textarea id="journal-text" maxlength="500" placeholder="오늘 있었던 일, 감정, 작은 순간을 적어줘."></textarea>
+              <div class="small-hint">
+                <span id="journal-count">0</span>/500 글자
+              </div>
+            </div>
+
+            <div class="chip-row" style="justify-content:flex-start;">
+              <button class="btn btn-primary" id="journal-save-btn">
+                <span>기록 저장하기</span> <span>✨</span>
+              </button>
+              <button class="btn btn-text" id="journal-clear-btn">
+                오늘 내용만 지우기
+              </button>
+            </div>
           </div>
-        </div>
 
-        <label for="journal-text">오늘의 기록</label>
-        <textarea id="journal-text" maxlength="500"
-                  placeholder="최대 500자까지! 오늘의 순간을 짧게 남겨보자 :)"></textarea>
-        <div class="char-counter"><span id="journal-count">0</span> / 500</div>
-
-        <label for="journal-photos">사진 (최대 3장)</label>
-        <input type="file" id="journal-photos" accept="image/*" multiple>
-        <div class="small">3장까지 저장돼. 4장 이상 선택하면 앞에서 3장만 사용돼.</div>
-
-        <div class="btn-row">
-          <button class="btn btn-ghost" id="journal-clear">입력 초기화</button>
-          <button class="btn btn-primary" id="journal-save">기록 저장하기</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title-row">
-          <h2>타임라인</h2>
-          <span class="badge">날짜별로 보기</span>
-        </div>
-        <div id="journal-list" class="journal-list small">
-          <!-- JS가 일기 카드 채움 -->
+          <div>
+            <label>기록 모아보기</label>
+            <div class="journal-list" id="journal-list"></div>
+          </div>
         </div>
       </div>
     </section>
@@ -748,24 +936,33 @@
       <div class="card">
         <div class="card-title-row">
           <h2>가고 싶은 장소 체크리스트 📍</h2>
-          <span class="badge">Google Maps 링크</span>
+          <span class="badge">with Google Maps 링크</span>
         </div>
-        <p class="desc">가보고 싶은 곳의 이름과 구글맵 링크를 넣으면, 리스트로 쌓여. 이름을 누르면 바로 새 탭에서 구글맵이 열려!</p>
+        <p class="desc">
+          가고 싶은 카페, 맛집, 관광지를 적어두고, 구글맵 링크를 붙이면 클릭 한 번으로 바로 이동할 수 있어.
+          다녀왔다면 체크하면, 아래 “다녀온 기록”에 날짜와 함께 쌓여!
+        </p>
 
-        <label for="place-name">장소 이름</label>
-        <input type="text" id="place-name" placeholder="예: Higher Ground, Hosier Lane" />
-
-        <label for="place-url">구글맵 링크</label>
-        <input type="url" id="place-url" placeholder="https://maps.google.com/..." />
-
-        <div class="btn-row">
-          <button class="btn btn-primary" id="place-add">리스트에 추가</button>
+        <div class="input-row" style="margin-top:6px;">
+          <div>
+            <label for="place-name">장소 이름</label>
+            <input id="place-name" placeholder="예: 멜버른 브런치 카페, 야라 강 야경 스팟">
+          </div>
+          <div>
+            <label for="place-link">구글맵 링크</label>
+            <input id="place-link" placeholder="https://goo.gl/maps/...">
+          </div>
         </div>
-      </div>
 
-      <div class="card">
+        <div class="chip-row" style="justify-content:flex-start;">
+          <button class="btn btn-primary" id="place-add-btn">리스트에 추가</button>
+          <span class="small-hint">장소 이름 / 링크는 나중에 수정도 가능해.</span>
+        </div>
+
+        <div class="divider"></div>
+
         <div class="card-title-row">
-          <h2>체크리스트</h2>
+          <h3 style="font-size:0.9rem;">가고 싶은 장소 목록</h3>
           <span class="badge">✅ visited</span>
         </div>
         <div id="checklist-list" class="checklist-list small"></div>
@@ -773,231 +970,251 @@
       </div>
     </section>
 
+    <!-- PACKING -->
+    <section id="packing">
+      <div class="card">
+        <div class="card-title-row">
+          <h2>짐을 챙겨요 🎒</h2>
+          <span class="badge">공용 / 지안 / 은설</span>
+        </div>
+        <p class="desc">
+          같이 쓰는 짐, 지안이가 챙길 것, 은설이가 챙길 것을 나눠서 정리하는 리스트야.
+          한 번 적어두면 이 앱을 여는 어디서든 같이 볼 수 있게 만들 거야 ✨
+        </p>
+
+        <div class="card" style="margin-top: 10px;">
+          <h3 style="font-size:0.9rem; margin-bottom:6px;">공용 짐</h3>
+          <div class="chip-row" style="justify-content:flex-start;">
+            <input id="pack-common-input" placeholder="예: 멀티탭, 보드게임" style="flex:1; min-width:0;">
+            <button class="btn btn-primary" onclick="addPacking('common')">추가</button>
+          </div>
+          <ul id="pack-common-list" class="packing-list"></ul>
+        </div>
+
+        <div class="card" style="margin-top: 10px;">
+          <h3 style="font-size:0.9rem; margin-bottom:6px;">지안이가 챙겨오기</h3>
+          <div class="chip-row" style="justify-content:flex-start;">
+            <input id="pack-jian-input" placeholder="예: 카메라, 필름" style="flex:1; min-width:0;">
+            <button class="btn btn-primary" onclick="addPacking('jian')">추가</button>
+          </div>
+          <ul id="pack-jian-list" class="packing-list"></ul>
+        </div>
+
+        <div class="card" style="margin-top: 10px;">
+          <h3 style="font-size:0.9rem; margin-bottom:6px;">은설이가 챙겨오기</h3>
+          <div class="chip-row" style="justify-content:flex-start;">
+            <input id="pack-seol-input" placeholder="예: 드라이기, 파자마" style="flex:1; min-width:0;">
+            <button class="btn btn-primary" onclick="addPacking('seol')">추가</button>
+          </div>
+          <ul id="pack-seol-list" class="packing-list"></ul>
+        </div>
+      </div>
+    </section>
+
+
     <!-- TOGANJIP -->
     <section id="toganjip">
       <div class="card">
         <div class="card-title-row">
-          <h2>또간집 기록 📝</h2>
-          <span class="badge">Before & After</span>
+          <h2>또간집 메모장 🏠</h2>
+          <span class="badge">2024 vs 이번 여행</span>
         </div>
-        <p class="desc">이미 한 번 갔다가 또 가는 장소라면, 2024년 사진 / 이번 여행 사진 두 장과 짧은 후기를 남겨서 “우리만의 또간집 카드”를 만들자.</p>
+        <p class="desc">
+          예전에 갔던 곳을 이번 여행에 또 간다면, 2024년 사진과 이번 여행 사진을 나란히 놓고 비교하면서 짧게 메모해보자.
+        </p>
 
-        <label for="tog-name">장소 이름</label>
-        <input type="text" id="tog-name" placeholder="예: Higher Ground, Victoria Market" />
+        <div class="toganjip-grid">
+          <div>
+            <label>또간집 정보</label>
+            <div class="mini-input-row">
+              <input id="tog-name" placeholder="가게/장소 이름">
+              <input id="tog-location" placeholder="도시 / 동네">
+            </div>
 
-        <label for="tog-photo1">첫 방문 사진 (예: 2024년)</label>
-        <input type="file" id="tog-photo1" accept="image/*">
+            <div class="memo-photo-box">
+              <div class="photo-placeholder">
+                2024년<br>사진 자리
+              </div>
+              <div class="photo-placeholder">
+                이번 여행<br>사진 자리
+              </div>
+              <div style="grid-column:1/3; font-size:0.72rem; color:var(--muted); text-align:left;">
+                실제 사진을 여기에 바로 띄우진 못하지만, 인스타/앨범에서 어떤 컷을 쓸지 메모처럼 적어두면 좋아 📸
+              </div>
+            </div>
 
-        <label for="tog-photo2">이번 여행 사진</label>
-        <input type="file" id="tog-photo2" accept="image/*">
+            <div class="memo-textarea">
+              <label for="tog-note">또 방문한 후기 (간단하게)</label>
+              <textarea id="tog-note" maxlength="500" placeholder="예: 예전엔 사람 많았는데 이번엔 여유롭고, 커피 맛이 더 좋아진 느낌!"></textarea>
+              <div class="small-hint">
+                <span id="tog-count">0</span>/500 글자
+              </div>
+            </div>
 
-        <label for="tog-note">또 방문한 후기</label>
-        <textarea id="tog-note" maxlength="400"
-                  placeholder="간단하게, 왜 또 갔는지 / 뭐가 달랐는지 적어줘 (400자 이내)"></textarea>
-        <div class="char-counter"><span id="tog-count">0</span> / 400</div>
+            <div class="chip-row" style="justify-content:flex-start;">
+              <button class="btn btn-primary" id="tog-save-btn">또간집 기록 저장</button>
+              <button class="btn btn-text" id="tog-clear-btn">입력 내용 지우기</button>
+            </div>
+          </div>
 
-        <div class="btn-row">
-          <button class="btn btn-primary" id="tog-save">또간집 카드 만들기</button>
+          <div>
+            <label>또간집 모아보기</label>
+            <div id="tog-list" class="toganjip-list"></div>
+          </div>
         </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title-row">
-          <h2>우리만의 또간집 모음</h2>
-          <span class="badge">memoboard</span>
-        </div>
-        <div id="tog-list" class="toganjip-list"></div>
       </div>
     </section>
-<div id="packing" class="page" style="display:none;">
-  <h2>짐을 챙겨요 🎒</h2>
-
-  <div class="card">
-    <h3>공용 짐</h3>
-    <div class="chip-row">
-      <input id="packing-common-input" placeholder="공용 짐 추가…" />
-      <button onclick="addPackingItem('common')">추가</button>
-    </div>
-    <ul id="packing-common-list" class="packing-list"></ul>
-  </div>
-
-  <div class="card">
-    <h3>지안이가 챙겨오기</h3>
-    <div class="chip-row">
-      <input id="packing-jian-input" placeholder="지안 짐 추가…" />
-      <button onclick="addPackingItem('jian')">추가</button>
-    </div>
-    <ul id="packing-jian-list" class="packing-list"></ul>
-  </div>
-
-  <div class="card">
-    <h3>은설이가 챙겨오기</h3>
-    <div class="chip-row">
-      <input id="packing-seol-input" placeholder="은설 짐 추가…" />
-      <button onclick="addPackingItem('seol')">추가</button>
-    </div>
-    <ul id="packing-seol-list" class="packing-list"></ul>
-  </div>
-</div>
 
     <!-- CHAT -->
     <section id="chat">
       <div class="card">
         <div class="card-title-row">
-          <h2>즉석 기분 채팅방 💬</h2>
-          <span class="badge">50자 제한</span>
+          <h2>우리 둘 즉석 기분 채팅방 💬</h2>
+          <span class="badge">50자 이내</span>
         </div>
-        <p class="desc">그때그때 떠오르는 감정을 짧게 던져두는 공간. 각자 기록장이 따로 있어서 서로 기분도 구경할 수 있어!</p>
-        <p class="desc small">위치 권한을 허용해 주면, 대략적인 위치도 같이 저장돼. (허용 안 해도 괜찮아!)</p>
-      </div>
+        <p class="desc">
+          그 순간의 기분을 50자 이내로 남기는 우리 둘만의 작은 타임라인.
+          지안이 방, 은설이 방이 따로 있어서 서로의 기분을 나중에 다시 보면 재밌을 거야.
+        </p>
 
-      <div class="chat-columns">
-        <!-- 지안 -->
-        <div class="card">
-          <div class="card-title-row">
-            <h2>지안이 기록장</h2>
-            <span class="badge">Tori</span>
+        <div class="chat-grid">
+          <div class="chat-col">
+            <h3>지안이 기록장 ✨</h3>
+            <div class="chat-input-row">
+              <textarea id="chat-jian-input" maxlength="50" placeholder="지금 기분을 50자 이내로"></textarea>
+              <button class="btn btn-primary" id="chat-jian-send">보내기</button>
+            </div>
+            <div class="chat-counter">
+              <span id="chat-jian-count">0</span>/50
+            </div>
+            <div id="chat-jian-log" class="chat-log"></div>
           </div>
-          <label for="chat-jian-input">지금 기분 한 줄</label>
-          <textarea id="chat-jian-input" maxlength="50"
-                    placeholder="50자 이내로만!"></textarea>
-          <div class="char-counter"><span id="chat-jian-count">0</span> / 50</div>
-          <div class="btn-row">
-            <button class="btn btn-primary" id="chat-jian-send">남기기</button>
+          <div class="chat-col">
+            <h3>은설이 기록장 🌙</h3>
+            <div class="chat-input-row">
+              <textarea id="chat-eun-input" maxlength="50" placeholder="지금 기분을 50자 이내로"></textarea>
+              <button class="btn btn-primary" id="chat-eun-send">보내기</button>
+            </div>
+            <div class="chat-counter">
+              <span id="chat-eun-count">0</span>/50
+            </div>
+            <div id="chat-eun-log" class="chat-log"></div>
           </div>
-          <div id="chat-jian-log" class="chat-log"></div>
-        </div>
-
-        <!-- 은설 -->
-        <div class="card">
-          <div class="card-title-row">
-            <h2>은설이 기록장</h2>
-            <span class="badge">Eunseol</span>
-          </div>
-          <label for="chat-eun-input">지금 기분 한 줄</label>
-          <textarea id="chat-eun-input" maxlength="50"
-                    placeholder="50자 이내로만!"></textarea>
-          <div class="char-counter"><span id="chat-eun-count">0</span> / 50</div>
-          <div class="btn-row">
-            <button class="btn btn-primary" id="chat-eun-send">남기기</button>
-          </div>
-          <div id="chat-eun-log" class="chat-log"></div>
         </div>
       </div>
     </section>
   </main>
 
   <footer>
-    만든 사람: jian • 모든 데이터는 이 브라우저에만 저장ㅋ 🌙
+    만든 사람: Tori & Eunseol • 대부분 정보는 이 브라우저에, 짐 리스트는 둘이 같이 보려고 클라우드에 저장돼요 🌙
   </footer>
 
   <script>
-    <script>
-  // 🔥 이미 넣어둔 부분 (지금 있는 그대로 유지)
-  const firebaseConfig = {
-    apiKey: "AIzaSyAkKiBvatV-2VQd3mBTNwoX0ZkxVvSq5Ig",
-    authDomain: "jian-1c9d3.firebaseapp.com",
-    projectId: "jian-1c9d3",
-    storageBucket: "jian-1c9d3.firebasestorage.app",
-    messagingSenderId: "1081519555440",
-    appId: "1:1081519555440:web:df585b5d3c6e10bbc805b5",
-    measurementId: "G-GFG5TRPB5Q"
-  };
-
-  const app = firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-
-  // ===== 짐을 챙겨요 Firestore 버전 =====
-  const packingCol = db.collection("packingItems");
-
-  // 실시간으로 짐 리스트 가져와서 화면에 뿌리기
-  packingCol.orderBy("createdAt").onSnapshot((snap) => {
-    const lists = {
-      common: [],
-      jian: [],
-      seol: []
+    // ===== Firebase (공유 데이터: 짐 리스트) =====
+    const firebaseConfig = {
+      apiKey: "AIzaSyAkKiBvatV-2VQd3mBTNwoX0ZkxVvSq5Ig",
+      authDomain: "jian-1c9d3.firebaseapp.com",
+      projectId: "jian-1c9d3",
+      storageBucket: "jian-1c9d3.firebasestorage.app",
+      messagingSenderId: "1081519555440",
+      appId: "1:1081519555440:web:df585b5d3c6e10bbc805b5",
+      measurementId: "G-GFG5TRPB5Q"
     };
 
-    snap.forEach((doc) => {
-      const data = doc.data();
-      const item = { id: doc.id, ...data };
-      if (lists[item.type]) {
-        lists[item.type].push(item);
-      }
-    });
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const packingCol = db.collection("packingItems");
 
-    renderPackingList("common", lists.common);
-    renderPackingList("jian", lists.jian);
-    renderPackingList("seol", lists.seol);
-  });
+    function renderPackingFromSnapshot(snapshot) {
+      const lists = { common: [], jian: [], seol: [] };
 
-  function renderPackingList(type, items) {
-    const ul = document.getElementById(`packing-${type}-list`);
-    if (!ul) return;
-    ul.innerHTML = "";
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        if (!data || !data.type) return;
+        const type = data.type;
+        if (!lists[type]) return;
+        lists[type].push({
+          id: doc.id,
+          text: data.text || "",
+          checked: !!data.checked,
+          createdAt: data.createdAt
+        });
+      });
 
-    items.forEach((item) => {
-      const li = document.createElement("li");
-      li.style.display = "flex";
-      li.style.alignItems = "center";
-      li.style.gap = "8px";
-      li.style.margin = "4px 0";
+      ["common", "jian", "seol"].forEach((type) => {
+        const ul = document.getElementById(`pack-${type}-list`);
+        if (!ul) return;
+        const arr = lists[type];
 
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.checked = !!item.checked;
-      checkbox.onchange = () => togglePackingItem(item.id, !item.checked);
+        if (!arr || !arr.length) {
+          ul.innerHTML = '<li><span style="color: var(--muted);">아직 아무것도 없어. 첫 아이템을 적어볼까? ✨</span></li>';
+          return;
+        }
 
-      const span = document.createElement("span");
-      span.textContent = item.text;
-      span.style.flex = "1";
-      span.style.textDecoration = item.checked ? "line-through" : "none";
-      span.style.opacity = item.checked ? "0.6" : "1";
+        arr.sort((a, b) => {
+          const ta = a.createdAt?.seconds || 0;
+          const tb = b.createdAt?.seconds || 0;
+          return ta - tb;
+        });
 
-      const delBtn = document.createElement("button");
-      delBtn.textContent = "삭제";
-      delBtn.onclick = () => deletePackingItem(item.id);
+        ul.innerHTML = "";
+        arr.forEach((item) => {
+          const li = document.createElement("li");
 
-      li.appendChild(checkbox);
-      li.appendChild(span);
-      li.appendChild(delBtn);
-      ul.appendChild(li);
-    });
-  }
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.checked = item.checked;
+          checkbox.addEventListener("change", () => {
+            togglePackingItem(item.id, !item.checked);
+          });
 
-  async function addPackingItem(type) {
-    const input = document.getElementById(`packing-${type}-input`);
-    if (!input || !input.value.trim()) return;
+          const span = document.createElement("span");
+          span.textContent = item.text;
+          if (item.checked) {
+            span.style.textDecoration = "line-through";
+            span.style.opacity = "0.6";
+          }
 
-    await packingCol.add({
-      type,
-      text: input.value.trim(),
-      checked: false,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    });
+          const delBtn = document.createElement("button");
+          delBtn.textContent = "삭제";
+          delBtn.addEventListener("click", () => {
+            deletePackingItem(item.id);
+          });
 
-    input.value = "";
-  }
+          li.appendChild(checkbox);
+          li.appendChild(span);
+          li.appendChild(delBtn);
+          ul.appendChild(li);
+        });
+      });
+    }
 
-  async function togglePackingItem(id, checked) {
-    await packingCol.doc(id).update({ checked });
-  }
+    packingCol.orderBy("createdAt").onSnapshot(renderPackingFromSnapshot);
 
-  async function deletePackingItem(id) {
-    await packingCol.doc(id).delete();
-  }
+    async function addPacking(type) {
+      const input = document.getElementById(`pack-${type}-input`);
+      if (!input) return;
+      const text = input.value.trim();
+      if (!text) return;
 
-  // ===== 여기 아래로는 기존에 있던 JS 코드 그대로 유지 =====
-  // (일기, 체크리스트, 또간집, 채팅 등)
-  // ...
-</script>
+      await packingCol.add({
+        type,
+        text,
+        checked: false,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
 
-     // === PWA: service worker 등록 ===
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js').catch(console.error);
-    });
-  }
+      input.value = "";
+    }
+
+    async function togglePackingItem(id, checked) {
+      await packingCol.doc(id).update({ checked });
+    }
+
+    async function deletePackingItem(id) {
+      await packingCol.doc(id).delete();
+    }
+
     // ===== 기본 도우미 =====
     const STORAGE_PREFIX = 'tori-aus-2026-';
 
@@ -1022,8 +1239,13 @@
       return `${y}-${m}-${d}`;
     }
 
-    function todayString() {
-      return formatDate(new Date());
+    function todayWithinTrip() {
+      const today = new Date();
+      const start = new Date('2026-01-16T00:00:00');
+      const end = new Date('2026-02-01T23:59:59');
+      if (today < start) return 'before';
+      if (today > end) return 'after';
+      return 'during';
     }
 
     // ===== 네비게이션 =====
@@ -1032,389 +1254,390 @@
 
     navButtons.forEach(btn => {
       btn.addEventListener('click', () => {
-        navButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
         const target = btn.dataset.target;
-        sections.forEach(sec => {
-          sec.classList.toggle('active', sec.id === target);
-        });
+        navButtons.forEach(b => b.classList.remove('active'));
+        sections.forEach(sec => sec.classList.remove('active'));
+
+        btn.classList.add('active');
+        const sec = document.getElementById(target);
+        if (sec) sec.classList.add('active');
       });
     });
 
-    // ===== Home: 카운트다운 & 날씨 예시 =====
-    const dDaySpan = document.getElementById('d-day');
-    const totalDaysSpan = document.getElementById('total-days');
+    // ===== 날씨 메모 (더미) =====
+    function initWeather() {
+      const today = new Date();
+      const month = today.getMonth() + 1;
+      const melTemp = (month === 1 || month === 2) ? '22' : '18';
+      const auTemp = (month === 1 || month === 2) ? '26' : '20';
 
-    (function setupHome() {
-      const departure = new Date('2026-01-20');
-      const now = new Date();
-      const diffMs = departure - now;
-      const dDay = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
-      dDaySpan.textContent = dDay > 0 ? dDay : 0;
+      document.getElementById('mel-temp').textContent = `${melTemp}°C`;
+      document.getElementById('au-temp').textContent = `${auTemp}°C`;
 
-      const start = new Date('2026-01-16');
-      const end = new Date('2026-02-01');
-      const total = (end - start) / (1000 * 60 * 60 * 24) + 1;
-      totalDaysSpan.textContent = total;
+      document.getElementById('mel-desc').textContent = '선선하지만 햇살 좋은 멜버른';
+      document.getElementById('au-desc').textContent = '도시마다 날씨는 달라도, 여행은 늘 설렘 가득';
+      document.getElementById('mel-high').textContent = '최고 24°';
+      document.getElementById('mel-low').textContent = '최저 16°';
+      document.getElementById('au-note').textContent = '예: 시드니 맑음, 멜버른 구름, 브리즈번 더움';
 
-      const today = todayString();
-      const melUpdated = document.getElementById('weather-mel-updated');
-      const ausUpdated = document.getElementById('weather-aus-updated');
-      melUpdated.textContent = today;
-      ausUpdated.textContent = today;
-    })();
-
-    // 날씨 API 연결 자리: 필요하면 이 함수 안에 fetch 추가
-    async function fetchWeatherExample() {
-      // 예시:
-      // const apiKey = 'YOUR_API_KEY';
-      // const url = `https://api.openweathermap.org/data/2.5/weather?q=Melbourne,AU&units=metric&lang=kr&appid=${apiKey}`;
-      // const res = await fetch(url);
-      // const data = await res.json();
-      // document.getElementById('weather-mel-temp').textContent = Math.round(data.main.temp) + '°C';
-      // document.getElementById('weather-mel-desc').textContent = data.weather[0].description;
+      document.getElementById('hour-am').textContent = '아침 산책 / 브런치';
+      document.getElementById('hour-noon').textContent = '점심 맛집 탐방';
+      document.getElementById('hour-pm').textContent = '노을 보는 산책';
+      document.getElementById('hour-night').textContent = '숙소에서 이야기 타임';
     }
+
+    initWeather();
 
     // ===== 일일 기록장 =====
     const journalDate = document.getElementById('journal-date');
+    const journalMood = document.getElementById('journal-mood');
+    const journalPhoto1 = document.getElementById('journal-photo1');
+    const journalPhoto2 = document.getElementById('journal-photo2');
+    const journalPhoto3 = document.getElementById('journal-photo3');
     const journalText = document.getElementById('journal-text');
-    const journalPhotos = document.getElementById('journal-photos');
     const journalCount = document.getElementById('journal-count');
-    const journalClearBtn = document.getElementById('journal-clear');
-    const journalSaveBtn = document.getElementById('journal-save');
+    const journalSaveBtn = document.getElementById('journal-save-btn');
+    const journalClearBtn = document.getElementById('journal-clear-btn');
     const journalList = document.getElementById('journal-list');
 
-    journalDate.value = todayString();
+    const tripStatus = todayWithinTrip();
+    if (tripStatus === 'before') {
+      journalDate.value = '2026-01-16';
+    } else if (tripStatus === 'during') {
+      journalDate.value = formatDate(new Date());
+    } else {
+      journalDate.value = '2026-02-01';
+    }
 
     journalText.addEventListener('input', () => {
       journalCount.textContent = journalText.value.length;
     });
 
-    journalClearBtn.addEventListener('click', () => {
-      journalText.value = '';
-      journalPhotos.value = '';
-      journalCount.textContent = '0';
-    });
-
-    function resizeImageToBase64(file, maxSize = 400) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = e => {
-          const img = new Image();
-          img.onload = () => {
-            const canvas = document.createElement('canvas');
-            const scale = Math.min(maxSize / img.width, maxSize / img.height, 1);
-            canvas.width = img.width * scale;
-            canvas.height = img.height * scale;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-            resolve(canvas.toDataURL('image/jpeg', 0.85));
-          };
-          img.onerror = reject;
-          img.src = e.target.result;
-        };
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-      });
+    function loadJournal() {
+      return loadData('journal', []);
     }
 
-    async function handleJournalSave() {
-      const dateVal = journalDate.value;
-      if (!dateVal) {
-        alert('날짜를 선택해줘!');
-        return;
-      }
-      const minDate = '2026-01-16';
-      const maxDate = '2026-02-01';
-      if (dateVal < minDate || dateVal > maxDate) {
-        alert('2026-01-16 ~ 2026-02-01 사이 날짜만 기록할 수 있어!');
-        return;
-      }
-      const text = journalText.value.trim();
-      if (!text) {
-        alert('오늘의 기록을 적어줘!');
-        return;
-      }
-
-      const files = Array.from(journalPhotos.files || []).slice(0, 3);
-      const photoData = [];
-      for (const f of files) {
-        try {
-          const base64 = await resizeImageToBase64(f, 480);
-          photoData.push(base64);
-        } catch (e) {
-          console.error('img convert error', e);
-        }
-      }
-
-      const entries = loadData('journalEntries', []);
-      const existingIndex = entries.findIndex(e => e.date === dateVal);
-      const entry = {
-        date: dateVal,
-        text,
-        photos: photoData,
-        updatedAt: new Date().toISOString()
-      };
-      if (existingIndex >= 0) {
-        entries[existingIndex] = entry;
-      } else {
-        entries.push(entry);
-      }
-      entries.sort((a, b) => a.date.localeCompare(b.date));
-      saveData('journalEntries', entries);
-
-      journalText.value = '';
-      journalPhotos.value = '';
-      journalCount.textContent = '0';
-      renderJournals();
-      alert('기록 저장 완료!');
+    function saveJournal(list) {
+      saveData('journal', list);
     }
 
-    journalSaveBtn.addEventListener('click', () => {
-      handleJournalSave();
-    });
-
-    function renderJournals() {
-      const entries = loadData('journalEntries', []);
-      if (!entries.length) {
-        journalList.innerHTML = '<div class="small">아직 기록이 없어. 첫 기록을 남겨볼까? ✏️</div>';
-        return;
-      }
+    function renderJournal() {
+      const list = loadJournal().sort((a, b) => a.date.localeCompare(b.date));
       journalList.innerHTML = '';
-      entries.forEach(entry => {
+
+      if (!list.length) {
+        const empty = document.createElement('div');
+        empty.textContent = '아직 기록이 없어요. 첫 기록을 남겨볼까? ✨';
+        empty.style.color = 'var(--muted)';
+        empty.style.fontSize = '0.8rem';
+        journalList.appendChild(empty);
+        return;
+      }
+
+      list.forEach(item => {
         const div = document.createElement('div');
         div.className = 'journal-item';
-        const moodTag = entry.date < '2026-01-20' ? '출발 전 설렘' :
-                        (entry.date <= '2026-02-01' ? '여행 중' : '');
-        div.innerHTML = `
-          <div class="journal-header">
-            <span class="journal-date">${entry.date}</span>
-            <span class="journal-tag">${moodTag}</span>
-          </div>
-          <div class="journal-body">${entry.text.replace(/\n/g, '<br>')}</div>
-        `;
-        if (entry.photos && entry.photos.length) {
+
+        const meta = document.createElement('div');
+        meta.className = 'journal-meta';
+        meta.innerHTML = `<span>${item.date}</span><span>${item.mood || ''}</span>`;
+
+        const textDiv = document.createElement('div');
+        textDiv.textContent = item.text;
+
+        div.appendChild(meta);
+
+        if (item.photos && item.photos.length) {
           const photosDiv = document.createElement('div');
           photosDiv.className = 'journal-photos';
-          entry.photos.forEach(src => {
+          item.photos.forEach(url => {
             const img = document.createElement('img');
-            img.src = src;
+            img.src = url;
+            img.alt = 'journal photo';
             photosDiv.appendChild(img);
           });
           div.appendChild(photosDiv);
         }
+
+        div.appendChild(textDiv);
         journalList.appendChild(div);
       });
     }
 
-    renderJournals();
+    journalSaveBtn.addEventListener('click', () => {
+      const date = journalDate.value;
+      const mood = journalMood.value.trim();
+      const text = journalText.value.trim();
+      const photos = [journalPhoto1.value, journalPhoto2.value, journalPhoto3.value].filter(Boolean);
 
-    // ===== 체크리스트 =====
-    const placeNameInput = document.getElementById('place-name');
-    const placeUrlInput = document.getElementById('place-url');
-    const placeAddBtn = document.getElementById('place-add');
-    const checklistList = document.getElementById('checklist-list');
-    const visitLogDiv = document.getElementById('visit-log');
-
-    placeAddBtn.addEventListener('click', () => {
-      const name = placeNameInput.value.trim();
-      const url = placeUrlInput.value.trim();
-      if (!name || !url) {
-        alert('장소 이름과 구글맵 링크를 모두 입력해줘!');
+      if (!date || !text) {
+        alert('날짜와 내용을 입력해줘!');
         return;
       }
-      const list = loadData('checklistPlaces', []);
-      list.push({
-        id: Date.now(),
-        name,
-        url,
-        visited: false,
-        visitedAt: null
-      });
-      saveData('checklistPlaces', list);
-      placeNameInput.value = '';
-      placeUrlInput.value = '';
-      renderChecklist();
+
+      const list = loadJournal();
+      const existingIndex = list.findIndex(j => j.date === date);
+      const item = { date, mood, text, photos };
+
+      if (existingIndex >= 0) {
+        list[existingIndex] = item;
+      } else {
+        list.push(item);
+      }
+
+      saveJournal(list);
+      renderJournal();
+      alert('기록 저장 완료 ✨');
     });
 
-    function toggleVisited(id, checked) {
-      const list = loadData('checklistPlaces', []);
-      const idx = list.findIndex(p => p.id === id);
-      if (idx < 0) return;
-      list[idx].visited = checked;
-      list[idx].visitedAt = checked ? todayString() : null;
-      saveData('checklistPlaces', list);
-      renderChecklist();
+    journalClearBtn.addEventListener('click', () => {
+      journalMood.value = '';
+      journalPhoto1.value = '';
+      journalPhoto2.value = '';
+      journalPhoto3.value = '';
+      journalText.value = '';
+      journalCount.textContent = '0';
+    });
+
+    renderJournal();
+
+    // ===== 체크리스트 (장소) =====
+    const placeName = document.getElementById('place-name');
+    const placeLink = document.getElementById('place-link');
+    const placeAddBtn = document.getElementById('place-add-btn');
+    const checklistList = document.getElementById('checklist-list');
+    const visitLog = document.getElementById('visit-log');
+
+    function loadPlaces() {
+      return loadData('places', []);
+    }
+
+    function savePlaces(list) {
+      saveData('places', list);
+    }
+
+    function loadVisits() {
+      return loadData('visits', []);
+    }
+
+    function saveVisits(list) {
+      saveData('visits', list);
     }
 
     function renderChecklist() {
-      const list = loadData('checklistPlaces', []);
-      if (!list.length) {
-        checklistList.innerHTML = '<div class="small">아직 추가된 장소가 없어. 가보고 싶은 곳부터 하나씩 채워보자! 🌏</div>';
-        visitLogDiv.innerHTML = '';
+      const places = loadPlaces();
+      checklistList.innerHTML = '';
+
+      if (!places.length) {
+        const empty = document.createElement('div');
+        empty.textContent = '아직 추가한 장소가 없어요. 가고 싶은 곳부터 적어볼까? ✨';
+        empty.style.color = 'var(--muted)';
+        empty.style.fontSize = '0.8rem';
+        checklistList.appendChild(empty);
+        renderVisits();
         return;
       }
-      checklistList.innerHTML = '';
-      list.forEach(item => {
+
+      places.forEach((place, index) => {
         const div = document.createElement('div');
         div.className = 'check-item';
-        div.innerHTML = `
-          <div class="check-top-row">
-            <span class="check-name">${item.name}</span>
-            <button class="btn btn-ghost btn-sm btn-danger" data-id="${item.id}">삭제</button>
-          </div>
-          <a href="${item.url}" target="_blank" class="check-link">구글맵으로 열기 ↗</a>
-          <div class="check-bottom-row">
-            <label>
-              <input type="checkbox" ${item.visited ? 'checked' : ''} data-id="${item.id}">
-              다녀왔어요
-            </label>
-            <span class="small">
-              ${item.visitedAt ? `방문 날짜: ${item.visitedAt}` : '아직 안 갔어'}
-            </span>
-          </div>
-        `;
+
+        const header = document.createElement('div');
+        header.className = 'check-item-header';
+
+        const labelSpan = document.createElement('span');
+        labelSpan.className = 'label';
+        labelSpan.textContent = place.name;
+
+        const linkBtn = document.createElement('button');
+        linkBtn.className = 'btn-text';
+        linkBtn.style.fontSize = '0.7rem';
+        linkBtn.textContent = '지도 열기';
+        linkBtn.addEventListener('click', () => {
+          if (place.link) window.open(place.link, '_blank');
+        });
+
+        header.appendChild(labelSpan);
+        header.appendChild(linkBtn);
+
+        const sub = document.createElement('div');
+        sub.className = 'check-sub';
+        sub.textContent = place.link || '구글맵 링크가 없어요. 나중에 추가해도 돼!';
+
+        const actions = document.createElement('div');
+        actions.className = 'check-actions';
+
+        const visitedBtn = document.createElement('button');
+        visitedBtn.textContent = '다녀왔어요!';
+        visitedBtn.addEventListener('click', () => {
+          const visits = loadVisits();
+          const today = new Date();
+          visits.push({
+            placeName: place.name,
+            date: formatDate(today)
+          });
+          saveVisits(visits);
+          renderVisits();
+        });
+
+        const removeBtn = document.createElement('button');
+        removeBtn.textContent = '삭제';
+        removeBtn.addEventListener('click', () => {
+          const updated = loadPlaces().filter((_, i) => i !== index);
+          savePlaces(updated);
+          renderChecklist();
+        });
+
+        actions.appendChild(visitedBtn);
+        actions.appendChild(removeBtn);
+
+        div.appendChild(header);
+        div.appendChild(sub);
+        div.appendChild(actions);
+
         checklistList.appendChild(div);
       });
 
-      checklistList.querySelectorAll('input[type="checkbox"]').forEach(chk => {
-        chk.addEventListener('change', () => {
-          const id = Number(chk.dataset.id);
-          toggleVisited(id, chk.checked);
-        });
-      });
+      renderVisits();
+    }
 
-      checklistList.querySelectorAll('.btn-danger').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const id = Number(btn.dataset.id);
-          const list = loadData('checklistPlaces', []);
-          const filtered = list.filter(p => p.id !== id);
-          saveData('checklistPlaces', filtered);
-          renderChecklist();
-        });
-      });
+    function renderVisits() {
+      const visits = loadVisits().sort((a, b) => a.date.localeCompare(b.date));
+      visitLog.innerHTML = '';
 
-      const visitGroups = {};
-      list.filter(i => i.visited && i.visitedAt).forEach(i => {
-        if (!visitGroups[i.visitedAt]) visitGroups[i.visitedAt] = [];
-        visitGroups[i.visitedAt].push(i.name);
-      });
-      const dates = Object.keys(visitGroups).sort();
-      if (!dates.length) {
-        visitLogDiv.innerHTML = '<div class="small">아직 방문 기록이 없어. 체크리스트에서 다녀온 곳에 체크하면 날짜별 목록이 여기 보여!</div>';
+      if (!visits.length) {
+        visitLog.textContent = '아직 다녀온 기록이 없어요. 첫 체크를 기다리는 중 ✨';
         return;
       }
-      visitLogDiv.innerHTML = '<div class="small">✔ 날짜별로 어디를 돌았는지 한 눈에 보기</div>';
-      dates.forEach(date => {
-        const groupDiv = document.createElement('div');
-        groupDiv.className = 'visit-log-group';
-        const pills = visitGroups[date].map(name => `<span class="visit-log-pill">${name}</span>`).join(' ');
-        groupDiv.innerHTML = `<strong>${date}</strong><div class="visit-log-list">${pills}</div>`;
-        visitLogDiv.appendChild(groupDiv);
+
+      visits.forEach(v => {
+        const div = document.createElement('div');
+        div.className = 'visit-log-entry';
+        div.textContent = `${v.date} - ${v.placeName}`;
+        visitLog.appendChild(div);
       });
     }
+
+    placeAddBtn.addEventListener('click', () => {
+      const name = placeName.value.trim();
+      const link = placeLink.value.trim();
+
+      if (!name) {
+        alert('장소 이름을 적어줘!');
+        return;
+      }
+
+      const list = loadPlaces();
+      list.push({ name, link });
+      savePlaces(list);
+      placeName.value = '';
+      placeLink.value = '';
+      renderChecklist();
+    });
 
     renderChecklist();
 
     // ===== 또간집 =====
     const togName = document.getElementById('tog-name');
-    const togPhoto1 = document.getElementById('tog-photo1');
-    const togPhoto2 = document.getElementById('tog-photo2');
+    const togLocation = document.getElementById('tog-location');
     const togNote = document.getElementById('tog-note');
     const togCount = document.getElementById('tog-count');
-    const togSaveBtn = document.getElementById('tog-save');
+    const togSaveBtn = document.getElementById('tog-save-btn');
+    const togClearBtn = document.getElementById('tog-clear-btn');
     const togList = document.getElementById('tog-list');
 
     togNote.addEventListener('input', () => {
       togCount.textContent = togNote.value.length;
     });
 
-    async function handleTogSave() {
-      const name = togName.value.trim();
-      if (!name) {
-        alert('장소 이름을 입력해줘!');
-        return;
-      }
-      if (!togPhoto1.files[0] || !togPhoto2.files[0]) {
-        alert('두 장의 사진을 모두 선택해줘! (예: 2024 / 이번 여행)');
-        return;
-      }
-      const note = togNote.value.trim();
-      const beforeImg = await resizeImageToBase64(togPhoto1.files[0], 480);
-      const afterImg = await resizeImageToBase64(togPhoto2.files[0], 480);
-      const list = loadData('toganjipEntries', []);
-      list.push({
-        id: Date.now(),
-        name,
-        beforeImg,
-        afterImg,
-        note,
-        createdAt: todayString()
-      });
-      saveData('toganjipEntries', list);
-      togName.value = '';
-      togPhoto1.value = '';
-      togPhoto2.value = '';
-      togNote.value = '';
-      togCount.textContent = '0';
-      renderToganjip();
-      alert('또간집 카드가 추가됐어!');
+    function loadToganjip() {
+      return loadData('toganjip', []);
     }
 
-    togSaveBtn.addEventListener('click', () => {
-      handleTogSave();
-    });
+    function saveToganjip(list) {
+      saveData('toganjip', list);
+    }
 
     function renderToganjip() {
-      const list = loadData('toganjipEntries', []);
+      const list = loadToganjip();
+      togList.innerHTML = '';
+
       if (!list.length) {
-        togList.innerHTML = '<div class="small">아직 또간집이 없어. 이번 여행에서 우리만의 단골을 만들어보자 😊</div>';
+        const empty = document.createElement('div');
+        empty.textContent = '아직 또간집이 없어요. 이번 여행에서 첫 또간집을 만들어보자! ✨';
+        empty.style.color = 'var(--muted)';
+        empty.style.fontSize = '0.8rem';
+        togList.appendChild(empty);
         return;
       }
-      togList.innerHTML = '';
+
       list.forEach(item => {
         const div = document.createElement('div');
-        div.className = 'toganjip-card';
-        div.innerHTML = `
-          <div class="journal-header">
-            <span class="journal-date">${item.name}</span>
-            <span class="small">카드 만든 날: ${item.createdAt}</span>
-          </div>
-          <div class="toganjip-photos">
-            <div>
-              <img src="${item.beforeImg}" alt="before">
-              <div class="toganjip-label">첫 방문</div>
-            </div>
-            <div>
-              <img src="${item.afterImg}" alt="after">
-              <div class="toganjip-label">이번 여행</div>
-            </div>
-          </div>
-          <div class="journal-body">${(item.note || '').replace(/\n/g, '<br>')}</div>
-        `;
+        div.className = 'toganjip-item';
+
+        const meta = document.createElement('div');
+        meta.className = 'toganjip-meta';
+        meta.innerHTML = `<span>${item.name} · ${item.location}</span><span>${item.date}</span>`;
+
+        const textDiv = document.createElement('div');
+        textDiv.textContent = item.note;
+
+        div.appendChild(meta);
+        div.appendChild(textDiv);
+
         togList.appendChild(div);
       });
     }
+
+    togSaveBtn.addEventListener('click', () => {
+      const name = togName.value.trim();
+      const location = togLocation.value.trim();
+      const note = togNote.value.trim();
+
+      if (!name || !note) {
+        alert('장소 이름과 후기를 적어줘!');
+        return;
+      }
+
+      const list = loadToganjip();
+      list.push({
+        name,
+        location,
+        note,
+        date: formatDate(new Date())
+      });
+
+      saveToganjip(list);
+      renderToganjip();
+      alert('또간집 기록 저장 완료 ✨');
+    });
+
+    togClearBtn.addEventListener('click', () => {
+      togName.value = '';
+      togLocation.value = '';
+      togNote.value = '';
+      togCount.textContent = '0';
+    });
 
     renderToganjip();
 
     // ===== 즉석 기분 채팅방 =====
     const chatJianInput = document.getElementById('chat-jian-input');
-    const chatJianCount = document.getElementById('chat-jian-count');
-    const chatJianSend = document.getElementById('chat-jian-send');
-    const chatJianLog = document.getElementById('chat-jian-log');
-
     const chatEunInput = document.getElementById('chat-eun-input');
-    const chatEunCount = document.getElementById('chat-eun-count');
+    const chatJianSend = document.getElementById('chat-jian-send');
     const chatEunSend = document.getElementById('chat-eun-send');
+    const chatJianCount = document.getElementById('chat-jian-count');
+    const chatEunCount = document.getElementById('chat-eun-count');
+    const chatJianLog = document.getElementById('chat-jian-log');
     const chatEunLog = document.getElementById('chat-eun-log');
 
-    chatJianInput.addEventListener('input', () => {
-      chatJianCount.textContent = chatJianInput.value.length;
-    });
-    chatEunInput.addEventListener('input', () => {
-      chatEunCount.textContent = chatEunInput.value.length;
-    });
+    function loadChat(who) {
+      return loadData(`chat-${who}`, []);
+    }
+
+    function saveChatList(who, list) {
+      saveData(`chat-${who}`, list);
+    }
 
     function getTimeString() {
       const now = new Date();
@@ -1424,68 +1647,33 @@
     }
 
     function saveChat(who, text, locationText) {
-      const key = who === 'jian' ? 'chatJian' : 'chatEun';
+      const key = who === 'jian' ? 'chat-jian' : 'chat-eun';
       const list = loadData(key, []);
       list.unshift({
         id: Date.now(),
         text,
-        date: todayString(),
+        date: formatDate(new Date()),
         time: getTimeString(),
-        location: locationText
+        location: locationText || '어딘가에서'
       });
       saveData(key, list);
-      renderChat();
     }
-
-    function requestLocationAndSave(who, text) {
-      if (!navigator.geolocation) {
-        saveChat(who, text, '위치 정보 없음');
-        return;
-      }
-      navigator.geolocation.getCurrentPosition(
-        pos => {
-          const { latitude, longitude } = pos.coords;
-          const locText = `(${latitude.toFixed(4)}, ${longitude.toFixed(4)})`;
-          saveChat(who, text, locText);
-        },
-        () => {
-          saveChat(who, text, '위치 정보 없음');
-        },
-        { timeout: 5000 }
-      );
-    }
-
-    chatJianSend.addEventListener('click', () => {
-      const text = chatJianInput.value.trim();
-      if (!text) {
-        alert('한 줄이라도 적어줘!');
-        return;
-      }
-      requestLocationAndSave('jian', text);
-      chatJianInput.value = '';
-      chatJianCount.textContent = '0';
-    });
-
-    chatEunSend.addEventListener('click', () => {
-      const text = chatEunInput.value.trim();
-      if (!text) {
-        alert('한 줄이라도 적어줘!');
-        return;
-      }
-      requestLocationAndSave('eun', text);
-      chatEunInput.value = '';
-      chatEunCount.textContent = '0';
-    });
 
     function renderChat() {
-      const listJian = loadData('chatJian', []);
-      const listEun = loadData('chatEun', []);
+      const listJian = loadChat('jian');
+      const listEun = loadChat('eun');
+
       function renderOne(list, container) {
+        container.innerHTML = '';
         if (!list.length) {
-          container.innerHTML = '<div class="small">아직 첫 한 줄이 없어. 지금 기분을 살짝 남겨볼까? :)</div>';
+          const empty = document.createElement('div');
+          empty.textContent = '아직 메시지가 없어요. 첫 기분을 남겨볼까? ✨';
+          empty.style.color = 'var(--muted)';
+          empty.style.fontSize = '0.8rem';
+          container.appendChild(empty);
           return;
         }
-        container.innerHTML = '';
+
         list.forEach(item => {
           const div = document.createElement('div');
           div.className = 'chat-bubble';
@@ -1500,24 +1688,41 @@
       renderOne(listEun, chatEunLog);
     }
 
+    chatJianInput.addEventListener('input', () => {
+      chatJianCount.textContent = chatJianInput.value.length;
+    });
+
+    chatEunInput.addEventListener('input', () => {
+      chatEunCount.textContent = chatEunInput.value.length;
+    });
+
+    chatJianSend.addEventListener('click', () => {
+      const text = chatJianInput.value.trim();
+      if (!text) return;
+      if (text.length > 50) {
+        alert('50자 이내로만 써줘!');
+        return;
+      }
+      saveChat('jian', text, '지안의 자리');
+      chatJianInput.value = '';
+      chatJianCount.textContent = '0';
+      renderChat();
+    });
+
+    chatEunSend.addEventListener('click', () => {
+      const text = chatEunInput.value.trim();
+      if (!text) return;
+      if (text.length > 50) {
+        alert('50자 이내로만 써줘!');
+        return;
+      }
+      saveChat('eun', text, '은설의 자리');
+      chatEunInput.value = '';
+      chatEunCount.textContent = '0';
+      renderChat();
+    });
+
     renderChat();
   </script>
-  <script>
-  // Firebase 설정
-  const firebaseConfig = {
-    apiKey: "AIzaSyAkKiBvatV-2VQd3mBTNwoX0ZkxVvSq5Ig",
-    authDomain: "jian-1c9d3.firebaseapp.com",
-    projectId: "jian-1c9d3",
-    storageBucket: "jian-1c9d3.firebasestorage.app",
-    messagingSenderId: "1081519555440",
-    appId: "1:1081519555440:web:df585b5d3c6e10bbc805b5",
-    measurementId: "G-GFG5TRPB5Q"
-  };
-
-  // Firebase 초기화
-  const app = firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-</script>
-
 </body>
 </html>
