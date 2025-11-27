@@ -500,9 +500,12 @@
     }
 
     .packing-list li span {
-      flex: 1;
-      word-break: break-all;
-    }
+  flex: 1;
+  word-break: keep-all;       
+  overflow-wrap: break-word;  
+  white-space: normal;
+}
+
 
     .packing-list li button {
       font-size: 0.7rem;
@@ -749,6 +752,7 @@
       body {
         padding: 12px;
       }
+      
 
       header h1 {
         font-size: 1.5rem;
@@ -767,6 +771,10 @@
         width: 64px;
         height: 64px;
       }
+      .packing-list li {
+    align-items: flex-start;
+    padding: 8px 10px;
+  }
     }
   </style>
 
@@ -978,7 +986,7 @@
           <span class="badge">공용 / 지안 / 은설</span>
         </div>
         <p class="desc">
-          같이 쓰는 짐, 지안이가 챙길 것, 은설이가 챙길 것을 나눠서 정리하는 리스트야.
+          같이 쓰는 짐, 지안이가 챙길 것, 은설이가 챙길 것을 나눠서 정리하는 리스트
           한 번 적어두면 이 앱을 여는 어디서든 같이 볼 수 있게 만들 거야 ✨
         </p>
 
